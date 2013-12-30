@@ -1,5 +1,4 @@
 # TODO:
-# - use PLD ldflags
 # - cleanup
 # - symlinks
 
@@ -54,12 +53,15 @@ Qt5 Tools - examples.
 %build
 qmake-qt5
 %{__make}
-%{__make} html_docs
+%{__make} docs || :
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install install_html_docs \
+%{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
+
+%{__make} install_docs \
+	INSTALL_ROOT=$RPM_BUILD_ROOT || :
 
 # Prepare some files list
 ifecho() {
