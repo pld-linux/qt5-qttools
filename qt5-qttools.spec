@@ -14,6 +14,8 @@ Source0:	http://download.qt-project.org/official_releases/qt/5.2/%{version}/subm
 URL:		http://qt-project.org/
 BuildRequires:	qt5-qtbase-devel = %{version}
 BuildRequires:	rpmbuild(macros) >= 1.654
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1
@@ -145,6 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_qtdir}/mkspecs
 
 %files examples -f examples.files
+%defattr(644,root,root,755)
 
 %files doc
 %defattr(644,root,root,755)
