@@ -21,6 +21,7 @@ BuildRequires:	Qt5Sql-devel >= %{version}
 BuildRequires:	Qt5Widgets-devel >= %{version}
 BuildRequires:	Qt5Xml-devel >= %{version}
 BuildRequires:	qt5-build >= %{version}
+BuildRequires:	qt5-doc-common >= %{version}
 BuildRequires:	qt5-qmake >= %{version}
 BuildRequires:	rpmbuild(macros) >= 1.654
 BuildRequires:	tar >= 1:1.22
