@@ -1,9 +1,9 @@
 # TODO:
-# - cleanup
-# - symlinks
+# - split (per-library + separate some larger tools, like in qt4)
 
 %define		orgname		qttools
-Summary:	The Qt5 Tools
+Summary:	Development tools for Qt 5
+Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
 Version:	5.2.0
 Release:	0.1
@@ -32,28 +32,50 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		qt5dir		%{_libdir}/qt5
 
 %description
-Qt5 Tools.
+Qt is a cross-platform application and UI framework. Using Qt, you can
+write web-enabled applications once and deploy them across desktop,
+mobile and embedded systems without rewriting the source code.
+
+This package contains additional tools for building Qt applications.
+
+%description -l pl.UTF-8
+Qt to wieloplatformowy szkielet aplikacji i interfejsów użytkownika.
+Przy użyciu Qt można pisać aplikacje powiązane z WWW i wdrażać je w
+systemach biurkowych, przenośnych i wbudowanych bez przepisywania kodu
+źródłowego.
+
+Ten pakiet zawiera dodatkowe narzędzia do budowania aplikacji Qt.
 
 %package devel
 Summary:	The Qt5 Tools - development files
+Summary(pl.UTF-8):	Narzędzia Qt5 - pliki programistyczne
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Qt5 Tools - development files.
 
+%description devel -l pl.UTF-8
+Narzędzia Qt5 - pliki programistyczne.
+
 %package doc
-Summary:	Qt5 Tools docs
+Summary:	Qt5 Tools documentation
+Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5
 Group:		X11/Development/Libraries
+Requires:	qt5-doc-common >= %{version}
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
 
 %description doc
-Qt5 Tools docs.
+Qt5 Tools documentation.
+
+%description doc -l pl.UTF-8
+Dokumentacja do narzędzi Qt5.
 
 %package examples
 Summary:	Qt5 Tools examples
+Summary(pl.UTF-8):	Przykłady do narzędzi Qt5
 Group:		X11/Development/Libraries
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
@@ -61,6 +83,9 @@ BuildArch:	noarch
 
 %description examples
 Qt5 Tools - examples.
+
+%description examples -l pl.UTF-8
+Przykłady do narzędzi Qt5.
 
 %prep
 %setup -q -n %{orgname}-opensource-src-%{version}
@@ -243,8 +268,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-# XXX: dir shared with qt5-qtbase-doc
-%dir %{_docdir}/qt5-doc
 %{_docdir}/qt5-doc/qtassistant
 %{_docdir}/qt5-doc/qtdesigner
 %{_docdir}/qt5-doc/qthelp
