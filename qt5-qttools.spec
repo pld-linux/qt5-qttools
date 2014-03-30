@@ -1,31 +1,34 @@
-# TODO:
-# - split (per-library + separate some larger tools, like in qt4)
-
 %define		orgname		qttools
+%define		qtbase_ver	%{version}
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
 Version:	5.2.0
-Release:	0.1
+Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
 Source0:	http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
 # Source0-md5:	76a0992967b6d02220ecb69a5ba04ef1
 URL:		http://qt-project.org/
 BuildRequires:	OpenGL-devel
-BuildRequires:	Qt5Core-devel >= %{version}
-BuildRequires:	Qt5Gui-devel >= %{version}
-BuildRequires:	Qt5Network-devel >= %{version}
-BuildRequires:	Qt5PrintSupport-devel >= %{version}
-BuildRequires:	Qt5Sql-devel >= %{version}
-BuildRequires:	Qt5Widgets-devel >= %{version}
-BuildRequires:	Qt5Xml-devel >= %{version}
-BuildRequires:	qt5-build >= %{version}
-BuildRequires:	qt5-doc-common >= %{version}
-BuildRequires:	qt5-qmake >= %{version}
+BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Gui-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Network-devel >= %{qtbase_ver}
+BuildRequires:	Qt5PrintSupport-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Sql-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Xml-devel >= %{qtbase_ver}
+BuildRequires:	qt5-build >= %{qtbase_ver}
+BuildRequires:	qt5-doc-common >= %{qtbase_ver}
+BuildRequires:	qt5-qmake >= %{qtbase_ver}
 BuildRequires:	rpmbuild(macros) >= 1.654
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+# pixeltool: Core, Gui, Widgets
+# qtpaths: Core
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-fno-strict-aliasing
@@ -46,23 +49,216 @@ systemach biurkowych, przenośnych i wbudowanych bez przepisywania kodu
 
 Ten pakiet zawiera dodatkowe narzędzia do budowania aplikacji Qt.
 
-%package devel
-Summary:	The Qt5 Tools - development files
-Summary(pl.UTF-8):	Narzędzia Qt5 - pliki programistyczne
+%package -n qt5-assistant
+Summary:	Qt documentation browser
+Summary(pl.UTF-8):	Przeglądarka dokumentacji Qt
+Group:		X11/Development/Tools
+# assistant: Core, Gui, Help, Network, PrintSupport, Sql, Widgets
+# qcollectiongenerator: Core, Gui, Help
+# qhelpconverter: Core, Gui, Widgets
+# qhelpgenerator: Core, Gui, Help
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Help = %{version}-%{release}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5Network >= %{qtbase_ver}
+Requires:	Qt5PrintSupport >= %{qtbase_ver}
+Requires:	Qt5Sql >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
+
+%description -n qt5-assistant
+Qt Assistant is a tool for browsing on-line documentation with
+indexing, bookmarks and full-text search.
+
+%description -n qt5-assistant -l pl.UTF-8
+Qt Assistant to narzędzie do przeglądania dokumentacji z możliwością
+indeksowania, dodawania zakładek i pełnotekstowego wyszukiwania.
+
+%package -n qt5-designer
+Summary:	IDE used for GUI designing with Qt 5 library
+Summary(pl.UTF-8):	IDE służące do projektowania GUI przy użyciu biblioteki Qt 5
+Group:		X11/Applications
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Designer = %{version}-%{release}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5Network >= %{qtbase_ver}
+Requires:	Qt5PrintSupport >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
+Requires:	Qt5Xml >= %{qtbase_ver}
+
+%description -n qt5-designer
+An advanced tool used for GUI designing with Qt 5 library.
+
+%description -n qt5-designer -l pl.UTF-8
+Zaawansowane narzędzie służące do projektowania interfejsu graficznego
+przy użyciu biblioteki Qt 5.
+
+%package -n qt5-linguist
+Summary:	Translation helper for Qt 5
+Summary(pl.UTF-8):	Aplikacja ułatwiająca tłumaczenie aplikacji opartych na Qt 5
+Group:		X11/Development/Tools
+# lconvert,lrelease,lupdate: Core, Xml
+# linguist: Core, Gui, PrintSupport, Widgets, Xml
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5PrintSupport >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
+Requires:	Qt5Xml >= %{qtbase_ver}
+
+%description -n qt5-linguist
+Translation helper for Qt 5.
+
+%description -n qt5-linguist -l pl.UTF-8
+Aplikacja ułatwiająca tłumaczenie aplikacji opartych na Qt 5.
+
+%package -n qt5-qdbus
+Summary:	Qt5 DBus tools
+Summary(pl.UTF-8):	Narzędzia Qt5 do magistrali DBus
+Group:		X11/Applications
+# qdbus: Core, DBus, Xml
+# qdbusviewer: Core, DBus, Gui, Widgets, Xml
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5DBus >= %{qtbase_ver}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
+Requires:	Qt5Xml >= %{qtbase_ver}
+
+%description -n qt5-qdbus
+This package contains the qdbus and qdbusviewer tools.
+
+%description -n qt5-qdbus -l pl.UTF-8
+Ten pakiet zawiera narzędzia qdbus i qdbusviewer.
+
+%package -n Qt5CLucene
+Summary:	Qt5 CLucene library
+Summary(pl.UTF-8):	Biblioteka Qt5 CLucene
+Group:		Libraries
+Requires:	Qt5Core >= %{qtbase_ver}
+
+%description -n Qt5CLucene
+The Qt5 CLucene library provides Qt API to CLucene, a C++ port of
+Lucene high-performance, full-featured text search engine.
+
+%description -n Qt5CLucene -l pl.UTF-8
+Biblioteka Qt5 CLucene dostarcza API Qt do CLucene - portu C++
+wysoko wydajnego, w pełni funkcjonalnego silnika wyszukiwania
+pełnotekstowego.
+
+%package -n Qt5CLucene-devel
+Summary:	Qt5 CLucene library - development files
+Summary(pl.UTF-8):	Biblioteka Qt5 CLucene - pliki programistyczne
+Group:		Development/Libraries
+Requires:	Qt5CLucene = %{version}-%{release}
+Requires:	Qt5Core-devel >= %{qtbase_ver}
+Obsoletes:	qt5-qttools-devel
+
+%description -n Qt5CLucene-devel
+Header files for Qt5 CLucene library.
+
+%description -n Qt5CLucene-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki Qt5 CLucene.
+
+%package -n Qt5Designer
+Summary:	Qt5 Designer libraries
+Summary(pl.UTF-8):	Biblioteki Qt5 Designer
+Group:		X11/Libraries
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
+Requires:	Qt5Xml >= %{qtbase_ver}
+
+%description -n Qt5Designer
+The Qt5 Designer libraries provide classes to create your own custom
+widget plugins for Qt Designer and classes to access Qt Designer
+components.
+
+%description -n Qt5Designer -l pl.UTF-8
+Biblioteki Qt5 Designer dostarczają klasy do tworzenia wtyczek Qt
+Designera do obsługi własnych widgetów oraz klasy pozwalające na
+dostęp do komponentów Qt Designera.
+
+%package -n Qt5Designer-devel
+Summary:	Qt5 Designer libraries - development files
+Summary(pl.UTF-8):	Biblioteki Qt5 Designer - pliki programistyczne
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	OpenGL-devel
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Designer = %{version}-%{release}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
+Requires:	Qt5Xml >= %{qtbase_ver}
+Obsoletes:	qt5-qttools-devel
 
-%description devel
-Qt5 Tools - development files.
+%description -n Qt5Designer-devel
+Header files for Qt5 Designer libraries.
 
-%description devel -l pl.UTF-8
-Narzędzia Qt5 - pliki programistyczne.
+%description -n Qt5Designer-devel -l pl.UTF-8
+Pliki nagłówkowe bibliotek Qt5 Designer.
+
+%package -n Qt5Help
+Summary:	Qt5 Help library
+Summary(pl.UTF-8):	Biblioteka Qt5 Help
+Group:		X11/Libraries
+Requires:	Qt5CLucene = %{version}-%{release}
+Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Gui >= %{qtbase_ver}
+Requires:	Qt5Network >= %{qtbase_ver}
+Requires:	Qt5Sql >= %{qtbase_ver}
+Requires:	Qt5Widgets >= %{qtbase_ver}
+
+%description -n Qt5Help
+Qt5 Help library provides classes for integrating online documentation
+in applications.
+
+%description -n Qt5Help -l pl.UTF-8
+Biblioteka Qt5 Help dostarcza klasy służące do integracji dokumentacji
+online w aplikacjach.
+
+%package -n Qt5Help-devel
+Summary:	Qt5 Help library - development files
+Summary(pl.UTF-8):	Biblioteka Qt5 Help - pliki programistyczne
+Group:		X11/Development/Libraries
+Requires:	Qt5CLucene-devel = %{version}-%{release}
+Requires:	Qt5Core-devel >= %{qtbase_ver}
+Requires:	Qt5Gui-devel >= %{qtbase_ver}
+Requires:	Qt5Help = %{version}-%{release}
+Requires:	Qt5Network-devel >= %{qtbase_ver}
+Requires:	Qt5Sql-devel >= %{qtbase_ver}
+Requires:	Qt5Widgets-devel >= %{qtbase_ver}
+Obsoletes:	qt5-qttools-devel
+
+%description -n Qt5Help-devel
+Header files for Qt5 Help library.
+
+%description -n Qt5Help-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki Qt5 Help.
+
+%package -n Qt5UiTools-devel
+Summary:	Qt5 Ui Tools library - development files
+Summary(pl.UTF-8):	Biblioteka Qt5 Ui Tools - pliki programistyczne
+Group:		X11/Development/Libraries
+Requires:	OpenGL-devel
+Requires:	Qt5Core-devel >= %{qtbase_ver}
+Requires:	Qt5Gui-devel >= %{qtbase_ver}
+Requires:	Qt5Widgets-devel >= %{qtbase_ver}
+Obsoletes:	qt5-qttools-devel
+
+%description -n Qt5UiTools-devel
+Header files and static Qt5 Ui Tools library.
+
+Qt5 Ui Tools library provides classes to handle forms created with Qt
+Designer.
+
+%description -n Qt5UiTools-devel -l pl.UTF-8
+Pliki nagłówkowe i statyczna biblioteka Qt5 Ui Tools.
+
+Biblioteka Qt5 Ui Tools dostarcza klasy do obsługi formularzy
+utworzonych przy użyciu Qt Designera.
 
 %package doc
 Summary:	Qt5 Tools documentation
 Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5
 Group:		X11/Development/Libraries
-Requires:	qt5-doc-common >= %{version}
+Requires:	qt5-doc-common >= %{qtbase_ver}
 %if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
 %endif
@@ -166,48 +362,79 @@ ifecho_tree examples %{_examplesdir}/qt5/uitools
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	-n Qt5CLucene -p /sbin/ldconfig
+%postun	-n Qt5CLucene -p /sbin/ldconfig
+
+%post	-n Qt5Designer -p /sbin/ldconfig
+%postun	-n Qt5Designer -p /sbin/ldconfig
+
+%post	-n Qt5Help -p /sbin/ldconfig
+%postun	-n Qt5Help -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc LGPL_EXCEPTION.txt dist/changes-*
+%attr(755,root,root) %{_bindir}/pixeltool-qt5
+%attr(755,root,root) %{_bindir}/qtpaths-qt5
+%attr(755,root,root) %{qt5dir}/bin/pixeltool
+%attr(755,root,root) %{qt5dir}/bin/qtpaths
 
-%attr(755,root,root) %{_libdir}/libQt5CLucene.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libQt5CLucene.so.5
-%attr(755,root,root) %{_libdir}/libQt5Designer.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libQt5Designer.so.5
-%attr(755,root,root) %{_libdir}/libQt5DesignerComponents.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libQt5DesignerComponents.so.5
-%attr(755,root,root) %{_libdir}/libQt5Help.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libQt5Help.so.5
-
+%files -n qt5-assistant
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/assistant-qt5
+%attr(755,root,root) %{_bindir}/qcollectiongenerator-qt5
+%attr(755,root,root) %{_bindir}/qhelpconverter-qt5
+%attr(755,root,root) %{_bindir}/qhelpgenerator-qt5
+%attr(755,root,root) %{qt5dir}/bin/assistant
+%attr(755,root,root) %{qt5dir}/bin/qcollectiongenerator
+%attr(755,root,root) %{qt5dir}/bin/qhelpconverter
+%attr(755,root,root) %{qt5dir}/bin/qhelpgenerator
+
+%files -n qt5-designer
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/designer-qt5
+%attr(755,root,root) %{qt5dir}/bin/designer
+
+%files -n qt5-linguist
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/lconvert-qt5
 %attr(755,root,root) %{_bindir}/linguist-qt5
 %attr(755,root,root) %{_bindir}/lrelease-qt5
 %attr(755,root,root) %{_bindir}/lupdate-qt5
-%attr(755,root,root) %{_bindir}/pixeltool-qt5
-%attr(755,root,root) %{_bindir}/qcollectiongenerator-qt5
-%attr(755,root,root) %{_bindir}/qdbus-qt5
-%attr(755,root,root) %{_bindir}/qdbusviewer-qt5
-%attr(755,root,root) %{_bindir}/qhelpconverter-qt5
-%attr(755,root,root) %{_bindir}/qhelpgenerator-qt5
-%attr(755,root,root) %{_bindir}/qtpaths-qt5
-%attr(755,root,root) %{qt5dir}/bin/assistant
-%attr(755,root,root) %{qt5dir}/bin/designer
 %attr(755,root,root) %{qt5dir}/bin/lconvert
 %attr(755,root,root) %{qt5dir}/bin/linguist
 %attr(755,root,root) %{qt5dir}/bin/lrelease
 %attr(755,root,root) %{qt5dir}/bin/lupdate
-%attr(755,root,root) %{qt5dir}/bin/pixeltool
-%attr(755,root,root) %{qt5dir}/bin/qcollectiongenerator
+%dir %{_datadir}/qt5
+%{_datadir}/qt5/phrasebooks
+%{_libdir}/cmake/Qt5LinguistTools
+
+%files -n qt5-qdbus
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/qdbus-qt5
+%attr(755,root,root) %{_bindir}/qdbusviewer-qt5
 %attr(755,root,root) %{qt5dir}/bin/qdbus
 %attr(755,root,root) %{qt5dir}/bin/qdbusviewer
-%attr(755,root,root) %{qt5dir}/bin/qhelpconverter
-%attr(755,root,root) %{qt5dir}/bin/qhelpgenerator
-%attr(755,root,root) %{qt5dir}/bin/qtpaths
+
+%files -n Qt5CLucene
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libQt5CLucene.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libQt5CLucene.so.5
+
+%files -n Qt5CLucene-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libQt5CLucene.so
+%{_libdir}/libQt5CLucene.prl
+%{_includedir}/qt5/QtCLucene
+%{_pkgconfigdir}/Qt5CLucene.pc
+%{qt5dir}/mkspecs/modules/qt_lib_clucene_private.pri
+
+%files -n Qt5Designer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libQt5Designer.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libQt5Designer.so.5
+%attr(755,root,root) %{_libdir}/libQt5DesignerComponents.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libQt5DesignerComponents.so.5
 
 %dir %{qt5dir}/plugins
 %dir %{qt5dir}/plugins/designer
@@ -216,48 +443,44 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/plugins/designer/libtaskmenuextension.so
 %attr(755,root,root) %{qt5dir}/plugins/designer/libworldtimeclockplugin.so
 
-%dir %{_datadir}/qt5
-%{_datadir}/qt5/phrasebooks
-
-%files devel
+%files -n Qt5Designer-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libQt5CLucene.so
 %attr(755,root,root) %{_libdir}/libQt5Designer.so
 %attr(755,root,root) %{_libdir}/libQt5DesignerComponents.so
-%attr(755,root,root) %{_libdir}/libQt5Help.so
-
-# static-only
-%{_libdir}/libQt5UiTools.a
-
-%{_libdir}/libQt5CLucene.prl
 %{_libdir}/libQt5Designer.prl
 %{_libdir}/libQt5DesignerComponents.prl
-%{_libdir}/libQt5Help.prl
-%{_libdir}/libQt5UiTools.prl
-
-%{_libdir}/cmake/Qt5Designer
-%{_libdir}/cmake/Qt5Help
-%{_libdir}/cmake/Qt5LinguistTools
-%{_libdir}/cmake/Qt5UiTools
-
-%{_includedir}/qt5/QtCLucene
 %{_includedir}/qt5/QtDesigner
 %{_includedir}/qt5/QtDesignerComponents
-%{_includedir}/qt5/QtHelp
-%{_includedir}/qt5/QtUiTools
-
-%{_pkgconfigdir}/Qt5CLucene.pc
 %{_pkgconfigdir}/Qt5Designer.pc
 %{_pkgconfigdir}/Qt5DesignerComponents.pc
-%{_pkgconfigdir}/Qt5Help.pc
-%{_pkgconfigdir}/Qt5UiTools.pc
-
-%{qt5dir}/mkspecs/modules/qt_lib_clucene_private.pri
+%{_libdir}/cmake/Qt5Designer
 %{qt5dir}/mkspecs/modules/qt_lib_designer.pri
 %{qt5dir}/mkspecs/modules/qt_lib_designer_private.pri
 %{qt5dir}/mkspecs/modules/qt_lib_designercomponents_private.pri
+
+%files -n Qt5Help
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libQt5Help.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libQt5Help.so.5
+
+%files -n Qt5Help-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libQt5Help.so
+%{_libdir}/libQt5Help.prl
+%{_includedir}/qt5/QtHelp
+%{_pkgconfigdir}/Qt5Help.pc
+%{_libdir}/cmake/Qt5Help
 %{qt5dir}/mkspecs/modules/qt_lib_help.pri
 %{qt5dir}/mkspecs/modules/qt_lib_help_private.pri
+
+%files -n Qt5UiTools-devel
+%defattr(644,root,root,755)
+# static-only
+%{_libdir}/libQt5UiTools.a
+%{_libdir}/libQt5UiTools.prl
+%{_includedir}/qt5/QtUiTools
+%{_pkgconfigdir}/Qt5UiTools.pc
+%{_libdir}/cmake/Qt5UiTools
 %{qt5dir}/mkspecs/modules/qt_lib_uitools.pri
 %{qt5dir}/mkspecs/modules/qt_lib_uitools_private.pri
 
