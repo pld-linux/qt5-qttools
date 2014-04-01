@@ -56,13 +56,14 @@ Group:		X11/Development/Tools
 # assistant: Core, Gui, Help, Network, PrintSupport, Sql, Widgets
 # qcollectiongenerator: Core, Gui, Help
 # qhelpconverter: Core, Gui, Widgets
-# qhelpgenerator: Core, Gui, Help
+# qhelpgenerator: Core, Gui, Help; sqldriver-sqlite3 to work
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Help = %{version}-%{release}
 Requires:	Qt5Gui >= %{qtbase_ver}
 Requires:	Qt5Network >= %{qtbase_ver}
 Requires:	Qt5PrintSupport >= %{qtbase_ver}
 Requires:	Qt5Sql >= %{qtbase_ver}
+Requires:	Qt5Sql-sqldriver-sqlite3 >= %{qtbase_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
 
 %description -n qt5-assistant
