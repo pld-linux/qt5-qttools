@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	qch	# QCH documentation
+
 %define		orgname		qttools
 %define		qtbase_ver	%{version}
 Summary:	Development tools for Qt 5
@@ -18,6 +22,7 @@ BuildRequires:	Qt5PrintSupport-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Sql-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Xml-devel >= %{qtbase_ver}
+%{?with_qch:BuildRequires:	qt5-assistant >= 5.2}
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-doc-common >= %{qtbase_ver}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
@@ -256,8 +261,8 @@ Biblioteka Qt5 Ui Tools dostarcza klasy do obsługi formularzy
 utworzonych przy użyciu Qt Designera.
 
 %package doc
-Summary:	Qt5 Tools documentation
-Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5
+Summary:	Qt5 Tools documentation in HTML format
+Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5 w formacie HTML
 Group:		X11/Development/Libraries
 Requires:	qt5-doc-common >= %{qtbase_ver}
 %if "%{_rpmversion}" >= "5"
@@ -265,10 +270,25 @@ BuildArch:	noarch
 %endif
 
 %description doc
-Qt5 Tools documentation.
+Qt5 Tools documentation in HTML format.
 
 %description doc -l pl.UTF-8
-Dokumentacja do narzędzi Qt5.
+Dokumentacja do narzędzi Qt5 w formacie HTML.
+
+%package doc-qch
+Summary:	Qt5 Tools documentation in QCH format
+Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5 w formacie QCH
+Group:		X11/Development/Libraries
+Requires:	qt5-doc-common >= %{qtbase_ver}
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description doc-qch
+Qt5 Tools documentation in QCH format.
+
+%description doc-qch -l pl.UTF-8
+Dokumentacja do narzędzi Qt5 w formacie QCH.
 
 %package examples
 Summary:	Qt5 Tools examples
@@ -291,8 +311,8 @@ Przykłady do narzędzi Qt5.
 qmake-qt5
 %{__make}
 
-# build only HTML docs (for now? qch docs target tries to use already installed qhelpgenerator)
-%{__make} html_docs
+# build only HTML docs if without qch (which needs already installed qhelpgenerator)
+%{__make} %{!?with_qch:html_}docs
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -301,7 +321,7 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
-%{__make} install_html_docs \
+%{__make} install_%{!?with_qch:html_}docs \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
 # kill unnecessary -L%{_libdir} from *.la, *.prl, *.pc
@@ -497,3 +517,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/qt5-doc/qthelp
 %{_docdir}/qt5-doc/qtlinguist
 %{_docdir}/qt5-doc/qtuitools
+
+%if %{with qch}
+%files doc-qch
+%defattr(644,root,root,755)
+%{_docdir}/qt5-doc/qtassistant.qch
+%{_docdir}/qt5-doc/qtdesigner.qch
+%{_docdir}/qt5-doc/qthelp.qch
+%{_docdir}/qt5-doc/qtlinguist.qch
+%{_docdir}/qt5-doc/qtuitools.qch
+%endif
