@@ -7,12 +7,12 @@
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.2.1
-Release:	2
+Version:	5.3.0
+Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	f56b2e6c537f6853d9bf10380c39418b
+Source0:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	628a91ddfe34efc6622fdba8c6348855
 URL:		http://qt-project.org/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -348,6 +348,7 @@ ln -sf ../%{_lib}/qt5/bin/qdbus qdbus-qt5
 ln -sf ../%{_lib}/qt5/bin/qdbusviewer qdbusviewer-qt5
 ln -sf ../%{_lib}/qt5/bin/qhelpconverter qhelpconverter-qt5
 ln -sf ../%{_lib}/qt5/bin/qhelpgenerator qhelpgenerator-qt5
+ln -sf ../%{_lib}/qt5/bin/qtdiag qtdiag-qt5
 ln -sf ../%{_lib}/qt5/bin/qtpaths qtpaths-qt5
 cd -
 
@@ -396,8 +397,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc LGPL_EXCEPTION.txt dist/changes-*
 %attr(755,root,root) %{_bindir}/pixeltool-qt5
+%attr(755,root,root) %{_bindir}/qtdiag-qt5
 %attr(755,root,root) %{_bindir}/qtpaths-qt5
 %attr(755,root,root) %{qt5dir}/bin/pixeltool
+%attr(755,root,root) %{qt5dir}/bin/qtdiag
 %attr(755,root,root) %{qt5dir}/bin/qtpaths
 
 %files -n qt5-assistant
