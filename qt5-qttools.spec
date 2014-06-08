@@ -467,6 +467,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/plugins/designer/libtaskmenuextension.so
 %attr(755,root,root) %{qt5dir}/plugins/designer/libworldtimeclockplugin.so
 
+# common for base -devel and plugin-specific files (from other source packages)
+%dir %{_libdir}/cmake/Qt5Designer
+
 %files -n Qt5Designer-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libQt5Designer.so
@@ -477,7 +480,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/qt5/QtDesignerComponents
 %{_pkgconfigdir}/Qt5Designer.pc
 %{_pkgconfigdir}/Qt5DesignerComponents.pc
-%{_libdir}/cmake/Qt5Designer
+%{_libdir}/cmake/Qt5Designer/Qt5DesignerConfig*.cmake
+%{_libdir}/cmake/Qt5Designer/Qt5Designer_AnalogClockPlugin.cmake
+%{_libdir}/cmake/Qt5Designer/Qt5Designer_MultiPageWidgetPlugin.cmake
+%{_libdir}/cmake/Qt5Designer/Qt5Designer_TicTacToePlugin.cmake
+%{_libdir}/cmake/Qt5Designer/Qt5Designer_WorldTimeClockPlugin.cmake
 %{qt5dir}/mkspecs/modules/qt_lib_designer.pri
 %{qt5dir}/mkspecs/modules/qt_lib_designer_private.pri
 %{qt5dir}/mkspecs/modules/qt_lib_designercomponents_private.pri
