@@ -7,19 +7,20 @@
 
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
-%define		qtdeclarative_ver	%{version}
-%define		qtwebkit_ver		%{version}
+%define		qttools_ver		5.2
+%define		qtdeclarative_ver	5.3
+%define		qtwebkit_ver		5.3
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.3.0
+Version:	5.3.1
 Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
 Source0:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	628a91ddfe34efc6622fdba8c6348855
+# Source0-md5:	7264920fc489ac878d40218263df8c4e
 Source1:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
-# Source1-md5:	1f8d488b6ac26cdbec7f7f7364cd01d0
+# Source1-md5:	d43878fc7a5b9fdee03039770dbac1fa
 URL:		http://qt-project.org/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -31,10 +32,10 @@ BuildRequires:	Qt5Sql-devel >= %{qtbase_ver}
 %{?with_qtwebkit:BuildRequires:	Qt5WebKit-devel >= %{qtwebkit_ver}}
 BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Xml-devel >= %{qtbase_ver}
-%{?with_qch:BuildRequires:	qt5-assistant >= 5.2}
+%{?with_qch:BuildRequires:	qt5-assistant >= %{qttools_ver}}
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-doc-common >= %{qtbase_ver}
-%{?with_qm:BuildRequires:	qt5-linguist >= 5.2}
+%{?with_qm:BuildRequires:	qt5-linguist >= %{qttools_ver}}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
 BuildRequires:	rpmbuild(macros) >= 1.654
 BuildRequires:	tar >= 1:1.22
