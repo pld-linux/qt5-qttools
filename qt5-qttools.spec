@@ -8,19 +8,19 @@
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
 %define		qttools_ver		5.2
-%define		qtdeclarative_ver	5.3
-%define		qtwebkit_ver		5.3
+%define		qtdeclarative_ver	5.4
+%define		qtwebkit_ver		5.4
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.3.2
+Version:	5.4.1
 Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	9074cc89bc52aea7f76a4d231d2f0ef6
-Source1:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
-# Source1-md5:	f2332bedc9c1ac8e762c62cfa71aa640
+Source0:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	5b2fd42304e9294bc0f77095fdb35ad6
+Source1:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
+# Source1-md5:	0bdd1b0a83b03a04a4ebeedfa3057d21
 URL:		http://qt-project.org/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
