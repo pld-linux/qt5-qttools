@@ -24,6 +24,7 @@ Source1:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/subm
 URL:		http://qt-project.org/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
+BuildRequires:	Qt5DBus-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Gui-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Network-devel >= %{qtbase_ver}
 BuildRequires:	Qt5PrintSupport-devel >= %{qtbase_ver}
