@@ -373,7 +373,7 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %{__make} -C qttranslations-opensource-src-%{version} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 # keep only assistant, designer, linguist, qt_help, qtconfig here
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qmlviewer,qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquick1,qtscript,qtxmlpatterns}_*.qm
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qmlviewer,qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquick1,qtquickcontrols,qtscript,qtxmlpatterns}_*.qm
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/qt_{??,??_??}.qm
 # qtconfig build is currently disabled (see src/src.pro)
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/qtconfig_*.qm
