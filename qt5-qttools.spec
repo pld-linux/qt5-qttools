@@ -534,7 +534,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libQt5DesignerComponents.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libQt5DesignerComponents.so.5
 
-%dir %{qt5dir}/plugins
 %dir %{qt5dir}/plugins/designer
 %attr(755,root,root) %{qt5dir}/plugins/designer/libcontainerextension.so
 %attr(755,root,root) %{qt5dir}/plugins/designer/libcustomwidgetplugin.so
