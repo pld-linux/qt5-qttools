@@ -1,9 +1,16 @@
 #
 # Conditional build:
+%bcond_with	bootstrap	# disable features to able to build without installed qt5
+# -- build targets
 %bcond_without	qch		# QCH documentation
 %bcond_without	qm		# QM translations
 %bcond_without	qtdeclarative	# Quick2 plugin for Qt5Declarative
 %bcond_without	qtwebkit	# WebKit plugin for Qt5Declarative
+
+%if %{with bootstrap}
+%undefine	with_qch
+%undefine	with_qm
+%endif
 
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
