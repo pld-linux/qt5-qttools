@@ -10,6 +10,7 @@
 %if %{with bootstrap}
 %undefine	with_qch
 %undefine	with_qm
+%undefine	with_qtwebkit
 %endif
 
 %define		orgname		qttools
