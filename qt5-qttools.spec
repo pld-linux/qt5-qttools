@@ -16,19 +16,19 @@
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
 %define		qttools_ver		5.2
-%define		qtdeclarative_ver	5.4
-%define		qtwebkit_ver		5.4
+%define		qtdeclarative_ver	5.5
+%define		qtwebkit_ver		5.5
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.4.2
+Version:	5.5.1
 Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	2949a16131b54169119d1a14b891a10b
-Source1:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
-# Source1-md5:	35151a736e3b720de4f5128386f9c834
+Source0:	http://download.qt-project.org/official_releases/qt/5.5/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	535ff9df9d83e9bde08ee3913b751d07
+Source1:	http://download.qt-project.org/official_releases/qt/5.5/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
+# Source1-md5:	1f89d53fe759db123b4b6d9de9d9e8c9
 URL:		http://qt-project.org/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -381,7 +381,7 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %{__make} -C qttranslations-opensource-src-%{version} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 # keep only assistant, designer, linguist, qt_help, qtconfig here
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qmlviewer,qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquick1,qtquickcontrols,qtscript,qtxmlpatterns}_*.qm
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qmlviewer,qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquick1,qtquickcontrols,qtscript,qtwebsockets,qtxmlpatterns}_*.qm
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/qt_{??,??_??}.qm
 # qtconfig build is currently disabled (see src/src.pro)
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/qtconfig_*.qm
@@ -413,6 +413,7 @@ ln -sf ../%{_lib}/qt5/bin/qhelpconverter qhelpconverter-qt5
 ln -sf ../%{_lib}/qt5/bin/qhelpgenerator qhelpgenerator-qt5
 ln -sf ../%{_lib}/qt5/bin/qtdiag qtdiag-qt5
 ln -sf ../%{_lib}/qt5/bin/qtpaths qtpaths-qt5
+ln -sf ../%{_lib}/qt5/bin/qtplugininfo qtplugininfo-qt5
 cd -
 
 # Prepare some files list
@@ -482,9 +483,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/pixeltool-qt5
 %attr(755,root,root) %{_bindir}/qtdiag-qt5
 %attr(755,root,root) %{_bindir}/qtpaths-qt5
+%attr(755,root,root) %{_bindir}/qtplugininfo-qt5
 %attr(755,root,root) %{qt5dir}/bin/pixeltool
 %attr(755,root,root) %{qt5dir}/bin/qtdiag
 %attr(755,root,root) %{qt5dir}/bin/qtpaths
+%attr(755,root,root) %{qt5dir}/bin/qtplugininfo
 
 %files -n qt5-assistant -f assistant.lang
 %defattr(644,root,root,755)
@@ -604,9 +607,12 @@ rm -rf $RPM_BUILD_ROOT
 # static-only
 %{_libdir}/libQt5UiTools.a
 %{_libdir}/libQt5UiTools.prl
+%{_includedir}/qt5/QtUiPlugin
 %{_includedir}/qt5/QtUiTools
 %{_pkgconfigdir}/Qt5UiTools.pc
+%{_libdir}/cmake/Qt5UiPlugin
 %{_libdir}/cmake/Qt5UiTools
+%{qt5dir}/mkspecs/modules/qt_lib_uiplugin.pri
 %{qt5dir}/mkspecs/modules/qt_lib_uitools.pri
 %{qt5dir}/mkspecs/modules/qt_lib_uitools_private.pri
 
