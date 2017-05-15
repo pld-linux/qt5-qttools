@@ -2,12 +2,14 @@
 # Conditional build:
 %bcond_with	bootstrap	# disable features to able to build without installed qt5
 # -- build targets
+%bcond_without	doc		# Ddocumentation
 %bcond_without	qch		# QCH documentation
 %bcond_without	qm		# QM translations
 %bcond_without	qtdeclarative	# Quick2 plugin for Qt5Declarative
 %bcond_without	qtwebkit	# WebKit plugin for Qt5Declarative
 
 %if %{with bootstrap}
+%undefine	with_doc
 %undefine	with_qch
 %undefine	with_qm
 %undefine	with_qtwebkit
@@ -15,20 +17,20 @@
 
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
-%define		qttools_ver		5.2
-%define		qtdeclarative_ver	5.5
-%define		qtwebkit_ver		5.5
+%define		qttools_ver		5.8
+%define		qtdeclarative_ver	5.8
+%define		qtwebkit_ver		5.8
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.5.1
-Release:	1
+Version:	5.8.0
+Release:	0.1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.5/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	535ff9df9d83e9bde08ee3913b751d07
-Source1:	http://download.qt.io/official_releases/qt/5.5/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
-# Source1-md5:	1f89d53fe759db123b4b6d9de9d9e8c9
+Source0:	http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	506e53a228fe0c3d6c8b6fbebd8e47ae
+Source1:	http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
+# Source1-md5:	b6c6748a923b9639c7d018cfdb04caf4
 URL:		http://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -357,8 +359,10 @@ Przykłady do narzędzi Qt5.
 qmake-qt5
 %{__make}
 
+%if %{with doc}
 # build only HTML docs if without qch (which needs already installed qhelpgenerator)
 %{__make} %{!?with_qch:html_}docs
+%endif
 
 %if %{with qm}
 cd qttranslations-opensource-src-%{version}
@@ -374,8 +378,10 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
+%if %{with doc}
 %{__make} install_%{!?with_qch:html_}docs \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
+%endif
 
 %if %{with qm}
 %{__make} -C qttranslations-opensource-src-%{version} install \
@@ -497,8 +503,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/qhelpgenerator-qt5
 %attr(755,root,root) %{qt5dir}/bin/assistant
 %attr(755,root,root) %{qt5dir}/bin/qcollectiongenerator
+%attr(755,root,root) %{qt5dir}/bin/qdoc
 %attr(755,root,root) %{qt5dir}/bin/qhelpconverter
 %attr(755,root,root) %{qt5dir}/bin/qhelpgenerator
+%attr(755,root,root) %{qt5dir}/bin/qtattributionsscanner
 
 %files -n qt5-designer -f designer.lang
 %defattr(644,root,root,755)
@@ -535,7 +543,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libQt5CLucene.so
 %{_libdir}/libQt5CLucene.prl
 %{_includedir}/qt5/QtCLucene
-%{_pkgconfigdir}/Qt5CLucene.pc
 %{qt5dir}/mkspecs/modules/qt_lib_clucene_private.pri
 
 %files -n Qt5Designer
@@ -563,7 +570,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/qt5/QtDesigner
 %{_includedir}/qt5/QtDesignerComponents
 %{_pkgconfigdir}/Qt5Designer.pc
-%{_pkgconfigdir}/Qt5DesignerComponents.pc
 %{_libdir}/cmake/Qt5Designer/Qt5DesignerConfig*.cmake
 %{_libdir}/cmake/Qt5Designer/Qt5Designer_AnalogClockPlugin.cmake
 %{_libdir}/cmake/Qt5Designer/Qt5Designer_MultiPageWidgetPlugin.cmake
@@ -621,6 +627,7 @@ rm -rf $RPM_BUILD_ROOT
 # XXX: dir shared with qt5-qtbase-examples
 %dir %{_examplesdir}/qt5
 
+%if %{with doc}
 %files doc
 %defattr(644,root,root,755)
 %{_docdir}/qt5-doc/qtassistant
@@ -637,4 +644,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/qt5-doc/qthelp.qch
 %{_docdir}/qt5-doc/qtlinguist.qch
 %{_docdir}/qt5-doc/qtuitools.qch
+%endif
 %endif
