@@ -3,14 +3,12 @@
 %bcond_with	bootstrap	# disable features to able to build without installed qt5
 # -- build targets
 %bcond_without	doc		# Ddocumentation
-%bcond_without	qch		# QCH documentation
 %bcond_without	qm		# QM translations
 %bcond_without	qtdeclarative	# Quick2 plugin for Qt5Declarative
 %bcond_without	qtwebkit	# WebKit plugin for Qt5Declarative
 
 %if %{with bootstrap}
 %undefine	with_doc
-%undefine	with_qch
 %undefine	with_qm
 %undefine	with_qtwebkit
 %endif
@@ -24,7 +22,11 @@ Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
 Version:	5.8.0
+<<<<<<< Updated upstream
 Release:	1
+=======
+Release:	0.1
+>>>>>>> Stashed changes
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
 Source0:	http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
@@ -43,7 +45,7 @@ BuildRequires:	Qt5Sql-devel >= %{qtbase_ver}
 %{?with_qtwebkit:BuildRequires:	Qt5WebKit-devel >= %{qtwebkit_ver}}
 BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Xml-devel >= %{qtbase_ver}
-%{?with_qch:BuildRequires:	qt5-assistant >= %{qttools_ver}}
+%{?with_doc:BuildRequires:	qt5-assistant >= %{qttools_ver}}
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-doc-common >= %{qtbase_ver}
 %{?with_qm:BuildRequires:	qt5-linguist >= %{qttools_ver}}
@@ -358,11 +360,7 @@ Przykłady do narzędzi Qt5.
 %build
 qmake-qt5
 %{__make}
-
-%if %{with doc}
-# build only HTML docs if without qch (which needs already installed qhelpgenerator)
-%{__make} %{!?with_qch:html_}docs
-%endif
+%{?with_doc:%{__make} docs}
 
 %if %{with qm}
 cd qttranslations-opensource-src-%{version}
@@ -379,7 +377,7 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
 %if %{with doc}
-%{__make} install_%{!?with_qch:html_}docs \
+%{__make} install_docs \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 %endif
 
@@ -636,7 +634,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/qt5-doc/qtlinguist
 %{_docdir}/qt5-doc/qtuitools
 
-%if %{with qch}
 %files doc-qch
 %defattr(644,root,root,755)
 %{_docdir}/qt5-doc/qtassistant.qch
@@ -644,5 +641,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/qt5-doc/qthelp.qch
 %{_docdir}/qt5-doc/qtlinguist.qch
 %{_docdir}/qt5-doc/qtuitools.qch
-%endif
 %endif
