@@ -21,14 +21,14 @@
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.8.0
+Version:	5.11.1
 Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	506e53a228fe0c3d6c8b6fbebd8e47ae
-Source1:	http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/qttranslations-opensource-src-%{version}.tar.xz
-# Source1-md5:	b6c6748a923b9639c7d018cfdb04caf4
+Source0:	http://download.qt.io/official_releases/qt/5.11/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
+# Source0-md5:	41aea9500d21bd03bfa718b1d715cbba
+Source1:	http://download.qt.io/official_releases/qt/5.11/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
+# Source1-md5:	67c0dbd61c2b92552b5339d82a94b1a8
 URL:		http://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -154,35 +154,6 @@ This package contains the qdbus and qdbusviewer tools.
 %description -n qt5-qdbus -l pl.UTF-8
 Ten pakiet zawiera narzędzia qdbus i qdbusviewer.
 
-%package -n Qt5CLucene
-Summary:	Qt5 CLucene library
-Summary(pl.UTF-8):	Biblioteka Qt5 CLucene
-Group:		Libraries
-Requires:	Qt5Core >= %{qtbase_ver}
-
-%description -n Qt5CLucene
-The Qt5 CLucene library provides Qt API to CLucene, a C++ port of
-Lucene high-performance, full-featured text search engine.
-
-%description -n Qt5CLucene -l pl.UTF-8
-Biblioteka Qt5 CLucene dostarcza API Qt do CLucene - portu C++
-wysoko wydajnego, w pełni funkcjonalnego silnika wyszukiwania
-pełnotekstowego.
-
-%package -n Qt5CLucene-devel
-Summary:	Qt5 CLucene library - development files
-Summary(pl.UTF-8):	Biblioteka Qt5 CLucene - pliki programistyczne
-Group:		Development/Libraries
-Requires:	Qt5CLucene = %{version}-%{release}
-Requires:	Qt5Core-devel >= %{qtbase_ver}
-Obsoletes:	qt5-qttools-devel
-
-%description -n Qt5CLucene-devel
-Header files for Qt5 CLucene library.
-
-%description -n Qt5CLucene-devel -l pl.UTF-8
-Pliki nagłówkowe biblioteki Qt5 CLucene.
-
 %package -n Qt5Designer
 Summary:	Qt5 Designer libraries
 Summary(pl.UTF-8):	Biblioteki Qt5 Designer
@@ -250,7 +221,6 @@ Wtyczka QWebView dla Qt5 Designera.
 Summary:	Qt5 Help library
 Summary(pl.UTF-8):	Biblioteka Qt5 Help
 Group:		X11/Libraries
-Requires:	Qt5CLucene = %{version}-%{release}
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Gui >= %{qtbase_ver}
 Requires:	Qt5Network >= %{qtbase_ver}
@@ -269,7 +239,6 @@ online w aplikacjach.
 Summary:	Qt5 Help library - development files
 Summary(pl.UTF-8):	Biblioteka Qt5 Help - pliki programistyczne
 Group:		X11/Development/Libraries
-Requires:	Qt5CLucene-devel = %{version}-%{release}
 Requires:	Qt5Core-devel >= %{qtbase_ver}
 Requires:	Qt5Gui-devel >= %{qtbase_ver}
 Requires:	Qt5Help = %{version}-%{release}
@@ -351,7 +320,7 @@ Qt5 Tools - examples.
 Przykłady do narzędzi Qt5.
 
 %prep
-%setup -q -n %{orgname}-opensource-src-%{version} %{?with_qm:-a1}
+%setup -q -n %{orgname}-everywhere-src-%{version} %{?with_qm:-a1}
 
 %build
 qmake-qt5
@@ -359,7 +328,7 @@ qmake-qt5
 %{?with_doc:%{__make} docs}
 
 %if %{with qm}
-cd qttranslations-opensource-src-%{version}
+cd qttranslations-everywhere-src-%{version}
 qmake-qt5
 %{__make}
 cd ..
@@ -378,13 +347,11 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %endif
 
 %if %{with qm}
-%{__make} -C qttranslations-opensource-src-%{version} install \
+%{__make} -C qttranslations-everywhere-src-%{version} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 # keep only assistant, designer, linguist, qt_help, qtconfig here
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qmlviewer,qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquick1,qtquickcontrols,qtscript,qtwebsockets,qtxmlpatterns}_*.qm
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qmlviewer,qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquick1,qtquickcontrols,qtquickcontrols2,qtserialport,qtscript,qtwebengine,qtwebsockets,qtxmlpatterns}_*.qm
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/qt_{??,??_??}.qm
-# qtconfig build is currently disabled (see src/src.pro)
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/qtconfig_*.qm
 %endif
 
 # kill unnecessary -L%{_libdir} from *.la, *.prl, *.pc
@@ -393,7 +360,7 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 	$RPM_BUILD_ROOT%{_pkgconfigdir}/*.pc
 
 # useless symlinks
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.so.5.?
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.so.5.??
 # actually drop *.la, follow policy of not packaging them when *.pc exist
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.la
 
@@ -468,9 +435,6 @@ find_qt5_qm qt_help >> qt_help.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-n Qt5CLucene -p /sbin/ldconfig
-%postun	-n Qt5CLucene -p /sbin/ldconfig
-
 %post	-n Qt5Designer -p /sbin/ldconfig
 %postun	-n Qt5Designer -p /sbin/ldconfig
 
@@ -479,7 +443,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LGPL_EXCEPTION.txt dist/changes-*
+%doc LICENSE.GPL3-EXCEPT dist/changes-*
 %attr(755,root,root) %{_bindir}/pixeltool-qt5
 %attr(755,root,root) %{_bindir}/qtdiag-qt5
 %attr(755,root,root) %{_bindir}/qtpaths-qt5
@@ -526,18 +490,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/qdbusviewer-qt5
 %attr(755,root,root) %{qt5dir}/bin/qdbus
 %attr(755,root,root) %{qt5dir}/bin/qdbusviewer
-
-%files -n Qt5CLucene
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libQt5CLucene.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libQt5CLucene.so.5
-
-%files -n Qt5CLucene-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libQt5CLucene.so
-%{_libdir}/libQt5CLucene.prl
-%{_includedir}/qt5/QtCLucene
-%{qt5dir}/mkspecs/modules/qt_lib_clucene_private.pri
 
 %files -n Qt5Designer
 %defattr(644,root,root,755)
