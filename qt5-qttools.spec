@@ -16,19 +16,19 @@
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
 %define		qttools_ver		5.8
-%define		qtdeclarative_ver	5.8
+%define		qtdeclarative_ver	5.12.0
 %define		qtwebkit_ver		5.8
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.11.1
-Release:	2
+Version:	5.12.1
+Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.11/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
-# Source0-md5:	41aea9500d21bd03bfa718b1d715cbba
-Source1:	http://download.qt.io/official_releases/qt/5.11/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
-# Source1-md5:	67c0dbd61c2b92552b5339d82a94b1a8
+Source0:	http://download.qt.io/official_releases/qt/5.12/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
+# Source0-md5:	0203f128f2d07091ac5c22fb98ba9253
+Source1:	http://download.qt.io/official_releases/qt/5.12/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
+# Source1-md5:	045ad1eda4d3a272b24b6c60a06b313f
 URL:		http://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -80,7 +80,6 @@ Summary(pl.UTF-8):	Przeglądarka dokumentacji Qt
 Group:		X11/Development/Tools
 # assistant: Core, Gui, Help, Network, PrintSupport, Sql, Widgets
 # qcollectiongenerator: Core, Gui, Help
-# qhelpconverter: Core, Gui, Widgets
 # qhelpgenerator: Core, Gui, Help; sqldriver-sqlite3 to work
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Help = %{version}-%{release}
@@ -350,7 +349,7 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %{__make} -C qttranslations-everywhere-src-%{version} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 # keep only assistant, designer, linguist, qt_help, qtconfig here
-%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qmlviewer,qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquick1,qtquickcontrols,qtquickcontrols2,qtserialport,qtscript,qtwebengine,qtwebsockets,qtxmlpatterns}_*.qm
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/{qtbase,qtconnectivity,qtdeclarative,qtlocation,qtmultimedia,qtquickcontrols,qtquickcontrols2,qtserialport,qtscript,qtwebengine,qtwebsockets,qtxmlpatterns}_*.qm
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/qt5/translations/qt_{??,??_??}.qm
 %endif
 
@@ -376,7 +375,7 @@ ln -sf ../%{_lib}/qt5/bin/pixeltool pixeltool-qt5
 ln -sf ../%{_lib}/qt5/bin/qcollectiongenerator qcollectiongenerator-qt5
 ln -sf ../%{_lib}/qt5/bin/qdbus qdbus-qt5
 ln -sf ../%{_lib}/qt5/bin/qdbusviewer qdbusviewer-qt5
-ln -sf ../%{_lib}/qt5/bin/qhelpconverter qhelpconverter-qt5
+ln -sf ../%{_lib}/qt5/bin/qdistancefieldgenerator qdistancefieldgenerator-qt5
 ln -sf ../%{_lib}/qt5/bin/qhelpgenerator qhelpgenerator-qt5
 ln -sf ../%{_lib}/qt5/bin/qtdiag qtdiag-qt5
 ln -sf ../%{_lib}/qt5/bin/qtpaths qtpaths-qt5
@@ -457,12 +456,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/assistant-qt5
 %attr(755,root,root) %{_bindir}/qcollectiongenerator-qt5
-%attr(755,root,root) %{_bindir}/qhelpconverter-qt5
+%attr(755,root,root) %{_bindir}/qdistancefieldgenerator-qt5
 %attr(755,root,root) %{_bindir}/qhelpgenerator-qt5
 %attr(755,root,root) %{qt5dir}/bin/assistant
 %attr(755,root,root) %{qt5dir}/bin/qcollectiongenerator
+%attr(755,root,root) %{qt5dir}/bin/qdistancefieldgenerator
 %attr(755,root,root) %{qt5dir}/bin/qdoc
-%attr(755,root,root) %{qt5dir}/bin/qhelpconverter
 %attr(755,root,root) %{qt5dir}/bin/qhelpgenerator
 %attr(755,root,root) %{qt5dir}/bin/qtattributionsscanner
 
