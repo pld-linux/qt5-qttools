@@ -22,7 +22,7 @@ Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
 Version:	5.13.0
-Release:	2
+Release:	3
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
 Source0:	http://download.qt.io/official_releases/qt/5.13/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
@@ -371,6 +371,9 @@ ln -sf ../%{_lib}/qt5/bin/lconvert lconvert-qt5
 ln -sf ../%{_lib}/qt5/bin/linguist linguist-qt5
 ln -sf ../%{_lib}/qt5/bin/lrelease lrelease-qt5
 ln -sf ../%{_lib}/qt5/bin/lupdate lupdate-qt5
+ln -sf ../%{_lib}/qt5/bin/lprodump lprodump-qt5
+ln -sf ../%{_lib}/qt5/bin/lrelease-pro lrelease-pro-qt5
+ln -sf ../%{_lib}/qt5/bin/lupdate-pro lupdate-pro-qt5
 ln -sf ../%{_lib}/qt5/bin/pixeltool pixeltool-qt5
 ln -sf ../%{_lib}/qt5/bin/qcollectiongenerator qcollectiongenerator-qt5
 ln -sf ../%{_lib}/qt5/bin/qdbus qdbus-qt5
@@ -474,12 +477,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/lconvert-qt5
 %attr(755,root,root) %{_bindir}/linguist-qt5
+%attr(755,root,root) %{_bindir}/lprodump-qt5
+%attr(755,root,root) %{_bindir}/lrelease-pro-qt5
 %attr(755,root,root) %{_bindir}/lrelease-qt5
+%attr(755,root,root) %{_bindir}/lupdate-pro-qt5
 %attr(755,root,root) %{_bindir}/lupdate-qt5
 %attr(755,root,root) %{qt5dir}/bin/lconvert
 %attr(755,root,root) %{qt5dir}/bin/linguist
+%attr(755,root,root) %{qt5dir}/bin/lprodump
 %attr(755,root,root) %{qt5dir}/bin/lrelease
+%attr(755,root,root) %{qt5dir}/bin/lrelease-pro
 %attr(755,root,root) %{qt5dir}/bin/lupdate
+%attr(755,root,root) %{qt5dir}/bin/lupdate-pro
 %{_datadir}/qt5/phrasebooks
 %{_libdir}/cmake/Qt5LinguistTools
 
