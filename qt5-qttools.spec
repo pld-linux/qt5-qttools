@@ -21,14 +21,14 @@
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.13.2
-Release:	2
+Version:	5.14.0
+Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.13/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
-# Source0-md5:	379492f100d0a009f58e97538af64a8d
-Source1:	http://download.qt.io/official_releases/qt/5.13/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
-# Source1-md5:	fea07dab5b04fe170fc06987f4fd0b0f
+Source0:	http://download.qt.io/official_releases/qt/5.14/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
+# Source0-md5:	934d5a36b42783c128b89bd756434412
+Source1:	http://download.qt.io/official_releases/qt/5.14/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
+# Source1-md5:	74ff09655d412069a7b4210fea5440fb
 URL:		http://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -467,6 +467,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/bin/qdoc
 %attr(755,root,root) %{qt5dir}/bin/qhelpgenerator
 %attr(755,root,root) %{qt5dir}/bin/qtattributionsscanner
+%{_libdir}/cmake/Qt5AttributionsScannerTools
+%{_libdir}/cmake/Qt5DocTools
 
 %files -n qt5-designer -f designer.lang
 %defattr(644,root,root,755)
@@ -589,16 +591,20 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with doc}
 %files doc
 %defattr(644,root,root,755)
+%{_docdir}/qt5-doc/qdoc
 %{_docdir}/qt5-doc/qtassistant
 %{_docdir}/qt5-doc/qtdesigner
+%{_docdir}/qt5-doc/qtdistancefieldgenerator
 %{_docdir}/qt5-doc/qthelp
 %{_docdir}/qt5-doc/qtlinguist
 %{_docdir}/qt5-doc/qtuitools
 
 %files doc-qch
 %defattr(644,root,root,755)
+%{_docdir}/qt5-doc/qdoc.qch
 %{_docdir}/qt5-doc/qtassistant.qch
 %{_docdir}/qt5-doc/qtdesigner.qch
+%{_docdir}/qt5-doc/qtdistancefieldgenerator.qch
 %{_docdir}/qt5-doc/qthelp.qch
 %{_docdir}/qt5-doc/qtlinguist.qch
 %{_docdir}/qt5-doc/qtuitools.qch
