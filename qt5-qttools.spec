@@ -41,6 +41,8 @@ BuildRequires:	Qt5Sql-devel >= %{qtbase_ver}
 %{?with_qtwebkit:BuildRequires:	Qt5WebKit-devel >= %{qtwebkit_ver}}
 BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Xml-devel >= %{qtbase_ver}
+BuildRequires:	clang-devel
+BuildRequires:	llvm-devel
 %{?with_doc:BuildRequires:	qt5-assistant >= %{qttools_ver}}
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-doc-common >= %{qtbase_ver}
