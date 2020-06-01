@@ -29,6 +29,7 @@ Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%
 # Source0-md5:	cbf72f34c9d53508f95b9a4db5322ffa
 Source1:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
 # Source1-md5:	7cbff3badaf760badbcdb5fcba109c1b
+Patch0:		qtwebkit.patch
 URL:		http://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -323,6 +324,7 @@ Przykłady do narzędzi Qt5.
 
 %prep
 %setup -q -n %{orgname}-everywhere-src-%{version} %{?with_qm:-a1}
+%patch0 -p1
 
 %build
 qmake-qt5
