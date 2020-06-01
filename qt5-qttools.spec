@@ -51,6 +51,7 @@ BuildRequires:	qt5-qmake >= %{qtbase_ver}
 BuildRequires:	rpmbuild(macros) >= 1.654
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+%{!?with_qtwebkit:BuildConflicts:	Qt5WebKit-devel}
 # pixeltool: Core, Gui, Widgets
 # qtpaths: Core
 Requires:	Qt5Core >= %{qtbase_ver}
