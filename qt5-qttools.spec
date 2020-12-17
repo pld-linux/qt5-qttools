@@ -4,8 +4,8 @@
 # -- build targets
 %bcond_without	doc		# Ddocumentation
 %bcond_without	qm		# QM translations
-%bcond_without	qtdeclarative	# Quick2 plugin for Qt5Declarative
-%bcond_without	qtwebkit	# WebKit plugin for Qt5Declarative
+%bcond_without	qtdeclarative	# QuickWidgets plugin for Qt5Designer
+%bcond_without	qtwebkit	# WebKit plugin for Qt5Designer, WebKit based browser in assistant
 
 %if %{with bootstrap}
 %undefine	with_doc
@@ -15,7 +15,8 @@
 
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
-%define		qttools_ver		5.8
+%define		qttools_assistant_ver	5.9
+%define		qttools_libguist_ver	5.5
 %define		qtdeclarative_ver	5.12.0
 %define		qtwebkit_ver		5.8
 Summary:	Development tools for Qt 5
@@ -29,7 +30,7 @@ Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%
 # Source0-md5:	739403634e1326a3d52902a835015a4b
 Source1:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
 # Source1-md5:	9b66cdb64402e8fd9e843f8a7120abb1
-URL:		http://www.qt.io/
+URL:		https://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5DBus-devel >= %{qtbase_ver}
@@ -43,15 +44,14 @@ BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Xml-devel >= %{qtbase_ver}
 BuildRequires:	clang-devel
 BuildRequires:	llvm-devel
-%{?with_doc:BuildRequires:	qt5-assistant >= %{qttools_ver}}
+%{?with_doc:BuildRequires:	qt5-assistant >= %{qttools_assistant_ver}}
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-doc-common >= %{qtbase_ver}
-%{?with_qm:BuildRequires:	qt5-linguist >= %{qttools_ver}}
+%{?with_qm:BuildRequires:	qt5-linguist >= %{qttools_linguist_ver}}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
-BuildRequires:	rpmbuild(macros) >= 1.654
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-%{!?with_qtwebkit:BuildConflicts:	Qt5WebKit-devel}
 # pixeltool: Core, Gui, Widgets
 # qtpaths: Core
 Requires:	Qt5Core >= %{qtbase_ver}
@@ -92,6 +92,9 @@ Requires:	Qt5PrintSupport >= %{qtbase_ver}
 Requires:	Qt5Sql >= %{qtbase_ver}
 Requires:	Qt5Sql-sqldriver-sqlite3 >= %{qtbase_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
+%if %{with qtwebkit}
+Requires:	Qt5WebKit >= %{qtwebkit_ver}
+%endif
 
 %description -n qt5-assistant
 Qt Assistant is a tool for browsing on-line documentation with
@@ -282,9 +285,7 @@ Summary:	Qt5 Tools documentation in HTML format
 Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5 w formacie HTML
 Group:		X11/Development/Libraries
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description doc
 Qt5 Tools documentation in HTML format.
@@ -297,9 +298,7 @@ Summary:	Qt5 Tools documentation in QCH format
 Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5 w formacie QCH
 Group:		X11/Development/Libraries
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description doc-qch
 Qt5 Tools documentation in QCH format.
@@ -311,9 +310,7 @@ Dokumentacja do narzędzi Qt5 w formacie QCH.
 Summary:	Qt5 Tools examples
 Summary(pl.UTF-8):	Przykłady do narzędzi Qt5
 Group:		X11/Development/Libraries
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description examples
 Qt5 Tools - examples.
@@ -323,6 +320,12 @@ Przykłady do narzędzi Qt5.
 
 %prep
 %setup -q -n %{orgname}-everywhere-src-%{version} %{?with_qm:-a1}
+
+%if %{without qtwebkit}
+%{__sed} -i -e '/^qtHaveModule(webkitwidgets)/ s/webkitwidgets/disabled&/' \
+	src/assistant/assistant/assistant.pro \
+	src/designer/src/plugins/plugins.pro
+%endif
 
 %build
 qmake-qt5
