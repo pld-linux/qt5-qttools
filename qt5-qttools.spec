@@ -53,7 +53,9 @@ BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 # pixeltool: Core, Gui, Widgets
+# qtdiag: Core Gui Network Widgets
 # qtpaths: Core
+# qtplugininfo: Core
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Gui >= %{qtbase_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
@@ -81,9 +83,12 @@ Ten pakiet zawiera dodatkowe narzędzia do budowania aplikacji Qt.
 Summary:	Qt documentation browser
 Summary(pl.UTF-8):	Przeglądarka dokumentacji Qt
 Group:		X11/Development/Tools
-# assistant: Core, Gui, Help, Network, PrintSupport, Sql, Widgets
-# qcollectiongenerator: Core, Gui, Help
-# qhelpgenerator: Core, Gui, Help; sqldriver-sqlite3 to work
+# assistant: Core, Gui, Help, Network, PrintSupport, Sql, Widgets %{?with_qtwebkit:WebKitWidgets}
+# qcollectiongenerator: (none)
+# qdistancefieldgenerator: Core Gui Quick Widgets
+# qdoc: Core, clang-libs
+# qhelpgenerator: Core, Gui, Help Sql; sqldriver-sqlite3 to work
+# qtattributionsscanner: Core
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Help = %{version}-%{release}
 Requires:	Qt5Gui >= %{qtbase_ver}
@@ -127,8 +132,8 @@ przy użyciu biblioteki Qt 5.
 Summary:	Translation helper for Qt 5
 Summary(pl.UTF-8):	Aplikacja ułatwiająca tłumaczenie aplikacji opartych na Qt 5
 Group:		X11/Development/Tools
-# lconvert,lrelease,lupdate: Core, Xml
-# linguist: Core, Gui, PrintSupport, Widgets, Xml
+# lconvert,lprodump,lrelease*,lupdate*: Core
+# linguist: Core, Gui, PrintSupport, Widgets
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Gui >= %{qtbase_ver}
 Requires:	Qt5PrintSupport >= %{qtbase_ver}
@@ -228,7 +233,6 @@ Summary(pl.UTF-8):	Biblioteka Qt5 Help
 Group:		X11/Libraries
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Gui >= %{qtbase_ver}
-Requires:	Qt5Network >= %{qtbase_ver}
 Requires:	Qt5Sql >= %{qtbase_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
 
@@ -247,7 +251,6 @@ Group:		X11/Development/Libraries
 Requires:	Qt5Core-devel >= %{qtbase_ver}
 Requires:	Qt5Gui-devel >= %{qtbase_ver}
 Requires:	Qt5Help = %{version}-%{release}
-Requires:	Qt5Network-devel >= %{qtbase_ver}
 Requires:	Qt5Sql-devel >= %{qtbase_ver}
 Requires:	Qt5Widgets-devel >= %{qtbase_ver}
 Obsoletes:	qt5-qttools-devel
