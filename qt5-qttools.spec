@@ -193,7 +193,7 @@ Requires:	Qt5Designer = %{version}-%{release}
 Requires:	Qt5Gui >= %{qtbase_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
 Requires:	Qt5Xml >= %{qtbase_ver}
-Obsoletes:	qt5-qttools-devel
+Obsoletes:	qt5-qttools-devel < 5.2.0-1
 
 %description -n Qt5Designer-devel
 Header files for Qt5 Designer libraries.
@@ -253,7 +253,7 @@ Requires:	Qt5Gui-devel >= %{qtbase_ver}
 Requires:	Qt5Help = %{version}-%{release}
 Requires:	Qt5Sql-devel >= %{qtbase_ver}
 Requires:	Qt5Widgets-devel >= %{qtbase_ver}
-Obsoletes:	qt5-qttools-devel
+Obsoletes:	qt5-qttools-devel < 5.2.0-1
 
 %description -n Qt5Help-devel
 Header files for Qt5 Help library.
@@ -269,7 +269,7 @@ Requires:	OpenGL-devel
 Requires:	Qt5Core-devel >= %{qtbase_ver}
 Requires:	Qt5Gui-devel >= %{qtbase_ver}
 Requires:	Qt5Widgets-devel >= %{qtbase_ver}
-Obsoletes:	qt5-qttools-devel
+Obsoletes:	qt5-qttools-devel < 5.2.0-1
 
 %description -n Qt5UiTools-devel
 Header files and static Qt5 Ui Tools library.
