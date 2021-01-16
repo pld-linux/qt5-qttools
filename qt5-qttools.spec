@@ -331,7 +331,8 @@ Przykłady do narzędzi Qt5.
 %endif
 
 %build
-qmake-qt5
+qmake-qt5 \
+	CONFIG-=compile_examples
 %{__make}
 %{?with_doc:%{__make} docs}
 
@@ -518,10 +519,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libQt5DesignerComponents.so.5
 
 %dir %{qt5dir}/plugins/designer
-%attr(755,root,root) %{qt5dir}/plugins/designer/libcontainerextension.so
-%attr(755,root,root) %{qt5dir}/plugins/designer/libcustomwidgetplugin.so
-%attr(755,root,root) %{qt5dir}/plugins/designer/libtaskmenuextension.so
-%attr(755,root,root) %{qt5dir}/plugins/designer/libworldtimeclockplugin.so
 
 # common for base -devel and plugin-specific files (from other source packages)
 %dir %{_libdir}/cmake/Qt5Designer
@@ -536,10 +533,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/qt5/QtDesignerComponents
 %{_pkgconfigdir}/Qt5Designer.pc
 %{_libdir}/cmake/Qt5Designer/Qt5DesignerConfig*.cmake
-%{_libdir}/cmake/Qt5Designer/Qt5Designer_AnalogClockPlugin.cmake
-%{_libdir}/cmake/Qt5Designer/Qt5Designer_MultiPageWidgetPlugin.cmake
-%{_libdir}/cmake/Qt5Designer/Qt5Designer_TicTacToePlugin.cmake
-%{_libdir}/cmake/Qt5Designer/Qt5Designer_WorldTimeClockPlugin.cmake
 %dir %{_libdir}/cmake/Qt5DesignerComponents
 %{_libdir}/cmake/Qt5DesignerComponents/Qt5DesignerComponentsConfig.cmake
 %{_libdir}/cmake/Qt5DesignerComponents/Qt5DesignerComponentsConfigVersion.cmake
