@@ -26,9 +26,9 @@ Version:	5.15.2
 Release:	6
 License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
+Source0:	https://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
 # Source0-md5:	739403634e1326a3d52902a835015a4b
-Source1:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
+Source1:	https://download.qt.io/official_releases/qt/5.15/%{version}/submodules/qttranslations-everywhere-src-%{version}.tar.xz
 # Source1-md5:	9b66cdb64402e8fd9e843f8a7120abb1
 URL:		https://www.qt.io/
 BuildRequires:	OpenGL-devel
