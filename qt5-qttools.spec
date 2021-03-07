@@ -288,7 +288,7 @@ Summary:	Qt5 Tools documentation in HTML format
 Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5 w formacie HTML
 Group:		X11/Development/Libraries
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description doc
 Qt5 Tools documentation in HTML format.
@@ -301,7 +301,7 @@ Summary:	Qt5 Tools documentation in QCH format
 Summary(pl.UTF-8):	Dokumentacja do narzędzi Qt5 w formacie QCH
 Group:		X11/Development/Libraries
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description doc-qch
 Qt5 Tools documentation in QCH format.
@@ -313,7 +313,7 @@ Dokumentacja do narzędzi Qt5 w formacie QCH.
 Summary:	Qt5 Tools examples
 Summary(pl.UTF-8):	Przykłady do narzędzi Qt5
 Group:		X11/Development/Libraries
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description examples
 Qt5 Tools - examples.
