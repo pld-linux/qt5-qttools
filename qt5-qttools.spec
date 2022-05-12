@@ -49,6 +49,7 @@ BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-doc-common >= %{qtbase_ver}
 %{?with_qm:BuildRequires:	qt5-linguist >= %{qttools_linguist_ver}}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
