@@ -50,7 +50,7 @@ BuildRequires:	qt5-doc-common >= %{qtbase_ver}
 %{?with_qm:BuildRequires:	qt5-linguist >= %{qttools_linguist_ver}}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.016
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 # pixeltool: Core, Gui, Widgets
@@ -332,14 +332,14 @@ Przykłady do narzędzi Qt5.
 %endif
 
 %build
-qmake-qt5 \
+%{qmake_qt5} \
 	CONFIG-=compile_examples
 %{__make}
 %{?with_doc:%{__make} docs}
 
 %if %{with qm}
 cd qttranslations-everywhere-src-%{version}
-qmake-qt5
+%{qmake_qt5}
 %{__make}
 cd ..
 %endif
