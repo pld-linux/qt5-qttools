@@ -169,7 +169,7 @@ Ten pakiet zawiera narzędzia qdbus i qdbusviewer.
 Summary:	Qt5 Designer libraries
 Summary(pl.UTF-8):	Biblioteki Qt5 Designer
 Group:		X11/Libraries
-Requires:	Qt5Core >= %{qtbase_ver}
+%requires_eq_to	Qt5Core Qt5Core-devel
 Requires:	Qt5Gui >= %{qtbase_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
 Requires:	Qt5Xml >= %{qtbase_ver}
@@ -232,7 +232,7 @@ Wtyczka QWebView dla Qt5 Designera.
 Summary:	Qt5 Help library
 Summary(pl.UTF-8):	Biblioteka Qt5 Help
 Group:		X11/Libraries
-Requires:	Qt5Core >= %{qtbase_ver}
+%requires_eq_to	Qt5Core Qt5Core-devel
 Requires:	Qt5Gui >= %{qtbase_ver}
 Requires:	Qt5Sql >= %{qtbase_ver}
 Requires:	Qt5Widgets >= %{qtbase_ver}
