@@ -254,6 +254,7 @@ Requires:	Qt5Gui-devel >= %{qtbase_ver}
 Requires:	Qt5Help = %{version}-%{release}
 Requires:	Qt5Sql-devel >= %{qtbase_ver}
 Requires:	Qt5Widgets-devel >= %{qtbase_ver}
+Requires:	qt5-assistant >= %{qtbase_ver}
 Obsoletes:	qt5-qttools-devel < 5.2.0-1
 
 %description -n Qt5Help-devel
