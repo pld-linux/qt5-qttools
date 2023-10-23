@@ -16,7 +16,7 @@
 %define		orgname		qttools
 %define		qtbase_ver		%{version}
 %define		qttools_assistant_ver	5.9
-%define		qttools_libguist_ver	5.5
+%define		qttools_linguist_ver	5.5
 %define		qtdeclarative_ver	5.12.0
 %define		qtwebkit_ver		5.8
 Summary:	Development tools for Qt 5
