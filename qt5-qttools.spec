@@ -22,14 +22,14 @@
 Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
-Version:	5.15.11
-Release:	2
+Version:	5.15.12
+Release:	1
 License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		X11/Libraries
 Source0:	https://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
-# Source0-md5:	be4e7b149aa8c867c08fd716f59ddb6c
+# Source0-md5:	01e2faec17c2b3c3b583755eaece96e8
 Source1:	https://download.qt.io/official_releases/qt/5.15/%{version}/submodules/qttranslations-everywhere-opensource-src-%{version}.tar.xz
-# Source1-md5:	541be36768847f531abb3859806dbc89
+# Source1-md5:	6b5974f2733ed0fe3cec06c851005e07
 URL:		https://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
