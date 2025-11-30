@@ -23,13 +23,16 @@ Summary:	Development tools for Qt 5
 Summary(pl.UTF-8):	Narzędzia programistyczne dla Qt 5
 Name:		qt5-%{orgname}
 Version:	5.15.18
-Release:	2
+Release:	3
 License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		X11/Libraries
 Source0:	https://download.qt.io/archive/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
 # Source0-md5:	d8bf54ff08ac84f919c5b5541f19882d
 Source1:	https://download.qt.io/archive/qt/5.15/%{version}/submodules/qttranslations-everywhere-opensource-src-%{version}.tar.xz
 # Source1-md5:	7e72177d16e791c0cd428b0bb438fa9a
+Source2:	assistant.desktop
+Source3:	designer.desktop
+Source4:	linguist.desktop
 URL:		https://www.qt.io/
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -347,7 +350,7 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir}}
 
 %{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
@@ -396,6 +399,22 @@ ln -sf ../%{_lib}/qt5/bin/qtdiag qtdiag-qt5
 ln -sf ../%{_lib}/qt5/bin/qtpaths qtpaths-qt5
 ln -sf ../%{_lib}/qt5/bin/qtplugininfo qtplugininfo-qt5
 cd -
+
+install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}/assistant-qt5.desktop
+install -D src/assistant/assistant/images/assistant.png \
+	$RPM_BUILD_ROOT%{_iconsdir}/hicolor/32x32/apps/assistant-qt5.png
+install -D src/assistant/assistant/images/assistant-128.png \
+	$RPM_BUILD_ROOT%{_iconsdir}/hicolor/128x128/apps/assistant-qt5.png
+
+install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}/designer-qt5.desktop
+install src/designer/src/designer/images/designer.png \
+	$RPM_BUILD_ROOT%{_iconsdir}/hicolor/128x128/apps/designer-qt5.png
+
+install %{SOURCE4} $RPM_BUILD_ROOT%{_desktopdir}/linguist-qt5.desktop
+for f in src/linguist/linguist/images/icons/linguist-*-32.png; do
+	size=$(echo $(basename ${f}) | cut -d- -f2)
+	install -D $f $RPM_BUILD_ROOT%{_iconsdir}/hicolor/${size}x${size}/apps/linguist-qt5.png
+done
 
 # Prepare some files list
 ifecho() {
@@ -455,6 +474,28 @@ rm -rf $RPM_BUILD_ROOT
 %post	-n Qt5Help -p /sbin/ldconfig
 %postun	-n Qt5Help -p /sbin/ldconfig
 
+%post	-n qt5-assistant
+%update_icon_cache hicolor
+
+%postun	-n qt5-assistant
+%update_icon_cache hicolor
+
+%post	-n qt5-designer
+%update_desktop_database
+%update_icon_cache hicolor
+
+%postun	-n qt5-designer
+%update_desktop_database_postun
+%update_icon_cache hicolor
+
+%post	-n qt5-linguist
+%update_desktop_database
+%update_icon_cache hicolor
+
+%postun	-n qt5-linguist
+%update_desktop_database_postun
+%update_icon_cache hicolor
+
 %files
 %defattr(644,root,root,755)
 %doc LICENSE.GPL3-EXCEPT dist/changes-*
@@ -481,11 +522,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/bin/qtattributionsscanner
 %{_libdir}/cmake/Qt5AttributionsScannerTools
 %{_libdir}/cmake/Qt5DocTools
+%{_desktopdir}/assistant-qt5.desktop
+%{_iconsdir}/hicolor/*/apps/assistant-qt5.png
 
 %files -n qt5-designer -f designer.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/designer-qt5
 %attr(755,root,root) %{qt5dir}/bin/designer
+%{_desktopdir}/designer-qt5.desktop
+%{_iconsdir}/hicolor/*/apps/designer-qt5.png
 
 %files -n qt5-linguist -f linguist.lang
 %defattr(644,root,root,755)
@@ -505,6 +550,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/bin/lupdate-pro
 %{_datadir}/qt5/phrasebooks
 %{_libdir}/cmake/Qt5LinguistTools
+%{_desktopdir}/linguist-qt5.desktop
+%{_iconsdir}/hicolor/*/apps/linguist-qt5.png
 
 %files -n qt5-qdbus
 %defattr(644,root,root,755)
